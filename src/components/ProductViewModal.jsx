@@ -61,10 +61,10 @@ function ProductViewModal({ open, setOpen, product, isAvailable }) {
                     {specialPrice ? (
                       <div className="flex items-center gap-2">
                         <span className="text-gray-400 line-through">
-                          ${Number(productPrice).toFixed(2)}
+                          ₹{Number(productPrice).toFixed(2)}
                         </span>
                         <span className="sm:text-xl font-semibold text-slate-700">
-                          ${Number(specialPrice).toFixed(2)}
+                          ₹{Number(specialPrice).toFixed(2)}
                         </span>
                       </div>
                     ) : (
@@ -97,7 +97,7 @@ function ProductViewModal({ open, setOpen, product, isAvailable }) {
                 <button
                   onClick={() => setOpen(false)}
                   type="button"
-                  className="px-4 py-2 text-sm font-semibold bg-rose-100 text-slate-700 border border-slate-700 rounded-md hover:border-slate-800 hover:text-slate-800"
+                  className="px-4 py-2 text-sm font-semibold bg-black text-white border border-slate-700 rounded-md hover:bg-white hover:text-black transition duration-300"
                 >
                   Close
                 </button>
