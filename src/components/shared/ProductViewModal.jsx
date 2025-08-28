@@ -7,24 +7,23 @@ import {
 } from "@headlessui/react";
 import { Divider } from "@mui/material";
 import Status from "./Status";
-import { useState } from "react";
 import { MdDone, MdClose } from "react-icons/md";
 
 function ProductViewModal({ open, setOpen, product, isAvailable }) {
   const {
-    id,
+    // id,
     productName,
     productImage,
     productDescription,
-    productDiscount,
+    // productDiscount,
     productPrice,
-    productQuantity,
+    // productQuantity,
     specialPrice,
   } = product;
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  //   const handleClickOpen = () => {
+  //     setOpen(true);
+  //   };
 
   return (
     <>

@@ -32,17 +32,16 @@ const Filter = ({ categories }) => {
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      if (searchTerm) {
-        searchParams.set("keyword", searchTerm);
-      } else {
-        searchParams.delete("keyword");
-      }
-      navigate(`${pathName}?${searchParams.toString()}`);
+      const params = new URLSearchParams(searchParams);
+      if (searchTerm) params.set("keyword", searchTerm);
+      else params.delete("keyword");
+      navigate({
+        pathname: pathName,
+        search: `?${params.toString()}`,
+      });
     }, 700);
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [searchParams, searchTerm, navigate, pathName]);
+    return () => clearTimeout(handler);
+  }, [searchTerm, searchParams, navigate, pathName]);
 
   const handleCategoryChange = (e) => {
     const selectedCategory = e.target.value;
@@ -58,16 +57,23 @@ const Filter = ({ categories }) => {
   };
 
   const toggleSortOrder = () => {
-    setSortOrder((prevOrder) => {
-      const newOrder = prevOrder === "asc" ? "desc" : "asc";
-      params.set("sortby", newOrder);
-      navigate(`${pathName}?${params}`);
-      return newOrder;
+    setSortOrder((prev) => {
+      const next = prev === "asc" ? "desc" : "asc";
+      params.set("sortby", next);
+      navigate({
+        pathname: location.pathname,
+        search: `?${params.toString()}`,
+      });
+      return next;
     });
   };
 
   const handleClearFilter = () => {
-    navigate({ pathName: window.location.pathname });
+    // Reset query string entirely
+    navigate({ pathname: location.pathname, search: "" });
+    setCategory("all");
+    setSortOrder("asc");
+    setSearchTerm("");
   };
   return (
     <div className="flex lg:flex-row flex-col-reverse lg:justify-between justify-center items-center gap-4">
@@ -80,7 +86,7 @@ const Filter = ({ categories }) => {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="border border-gray-400 text-slate-800 rounded-md py-2 pl-10 pr-4 w-full focus:outline focus:ring-2 focus:ring-[#5f9ddb]"
         />
-        <FiSearch className="absolute left-3 text-slate-800 size={20}" />
+        <FiSearch className="absolute left-3 text-slate-800" size={20} />
       </div>
       {/* Category Selction */}
       <div className="flex sm:flex-row flex-col items-center gap-4">
@@ -98,7 +104,7 @@ const Filter = ({ categories }) => {
             className="min-w-[120px] text-slate-800 border-slate-700"
           >
             <MenuItem value="all">All</MenuItem>
-            {categories.map((item) => (
+            {categories?.map((item) => (
               <MenuItem key={item.categoryId} value={item.categoryName}>
                 {item.categoryName}
               </MenuItem>
@@ -106,14 +112,20 @@ const Filter = ({ categories }) => {
           </Select>
         </FormControl>
         {/* Sort Button & Clear Filter */}
-        <Tooltip title="Sort">
+        <Tooltip
+          title={
+            sortOrder == "asc"
+              ? "Sorted by price: ascending"
+              : "Sorted by price: descending"
+          }
+        >
           <Button
             onClick={toggleSortOrder}
             variant="contained"
             color="primary"
             className="flex items-center gap-2 h-10"
           >
-            Sort By
+            Sort By Price
             {sortOrder === "asc" ? (
               <FiArrowUp size={20} />
             ) : (
