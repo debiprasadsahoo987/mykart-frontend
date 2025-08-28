@@ -12,6 +12,7 @@ const ProductCard = ({
   productPrice,
   productQuantity,
   specialPrice,
+  about = false,
 }) => {
   const [openProductViewModal, setOpenProductViewModal] = useState(false);
   const btnLoader = false;
@@ -19,8 +20,10 @@ const ProductCard = ({
   const isAvailable = productQuantity && Number(productQuantity) > 0;
 
   const handleProductView = (product) => {
-    setSelectedViewProduct(product);
-    setOpenProductViewModal(true);
+    if (!about) {
+      setSelectedViewProduct(product);
+      setOpenProductViewModal(true);
+    }
   };
   return (
     <div className="border rounded-lg shadow-xl overflow-hidden transition-shadow duration-300">
@@ -69,35 +72,37 @@ const ProductCard = ({
               {TruncateText(productDescription, 70)}
             </p>
           </div>
-          <div className="mt-4 flex items-center justify-between">
-            {specialPrice ? (
-              <div className="flex flex-col">
-                <span className="text-[12px] text-gray-700 line-through">
-                  ₹ {Number(productPrice).toFixed(2)}
+          {!about && (
+            <div className="mt-4 flex items-center justify-between">
+              {specialPrice ? (
+                <div className="flex flex-col">
+                  <span className="text-[12px] text-gray-700 line-through">
+                    ₹ {Number(productPrice).toFixed(2)}
+                  </span>
+                  <span className="text-[15px] font-bold text-slate-700">
+                    ₹ {Number(specialPrice).toFixed(2)}
+                  </span>
+                </div>
+              ) : (
+                <span className="text-gray-700 line-through">
+                  {"  "}₹ {Number(productPrice).toFixed(2)}
                 </span>
-                <span className="text-[15px] font-bold text-slate-700">
-                  ₹ {Number(specialPrice).toFixed(2)}
-                </span>
-              </div>
-            ) : (
-              <span className="text-gray-700 line-through">
-                {"  "}₹ {Number(productPrice).toFixed(2)}
-              </span>
-            )}
-            <button
-              disabled={!isAvailable || btnLoader}
-              onClick={() => {}}
-              className={`bg-blue-500 ${
-                isAvailable
-                  ? "opacity-100 hover:bg-blue-600 cursor-pointer"
-                  : "opacity-70 bg-red-400 cursor-not-allowed pointer-events-none"
-              }
+              )}
+              <button
+                disabled={!isAvailable || btnLoader}
+                onClick={() => {}}
+                className={`bg-blue-500 ${
+                  isAvailable
+                    ? "opacity-100 hover:bg-blue-600 cursor-pointer"
+                    : "opacity-70 bg-red-400 cursor-not-allowed pointer-events-none"
+                }
             text-white py-2 px-3 rounded-lg items-center transition-colors duration-300 w-36 flex justify-center`}
-            >
-              <FaShoppingCart className="mr-2" />
-              {isAvailable ? "Add to Cart" : "Out of Stock"}
-            </button>
-          </div>
+              >
+                <FaShoppingCart className="mr-2" />
+                {isAvailable ? "Add to Cart" : "Out of Stock"}
+              </button>
+            </div>
+          )}
         </div>
         <ProductViewModal
           open={openProductViewModal}
