@@ -5,6 +5,7 @@ import TruncateText from "../../utils/TruncateText";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/actions";
 import toast from "react-hot-toast";
+import { formatPrice } from "../../utils/formatPrice";
 
 const ProductCard = ({
   productId,
@@ -86,15 +87,15 @@ const ProductCard = ({
               {specialPrice ? (
                 <div className="flex flex-col">
                   <span className="text-[12px] text-gray-700 line-through">
-                    ₹ {Number(productPrice).toFixed(2)}
+                    ₹{Number(productPrice).toFixed(2)}
                   </span>
                   <span className="text-[15px] font-bold text-slate-700">
-                    ₹ {Number(specialPrice).toFixed(2)}
+                    ₹{Number(specialPrice).toFixed(2)}
                   </span>
                 </div>
               ) : (
                 <span className="text-gray-700 line-through">
-                  {"  "}₹ {Number(productPrice).toFixed(2)}
+                  {"  "}₹{Number(productPrice).toFixed(2)}
                 </span>
               )}
               <button

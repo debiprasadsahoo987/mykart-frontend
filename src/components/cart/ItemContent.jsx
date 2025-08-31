@@ -3,8 +3,13 @@ import TruncateText from "../../utils/TruncateText";
 import { HiOutlineTrash } from "react-icons/hi";
 import SetQuantity from "./SetQuantity";
 import { useDispatch } from "react-redux";
-import { increaseCartQty } from "../../store/actions";
+import {
+  decreaseCartQty,
+  increaseCartQty,
+  removeFromCart,
+} from "../../store/actions";
 import toast from "react-hot-toast";
+import { formatPrice } from "../../utils/formatPrice";
 
 const ItemContent = ({
   productId,
@@ -26,6 +31,18 @@ const ItemContent = ({
     );
   };
 
+  const handleQtyDecrease = (cartItems) => {
+    if (currentQuantity > 1) {
+      const newQuantity = currentQuantity - 1;
+      setCurrentQuantity(newQuantity);
+      dispatch(decreaseCartQty(cartItems, newQuantity));
+    }
+  };
+
+  const removeItemFromCart = (cartItems) => {
+    dispatch(removeFromCart(cartItems, toast));
+  };
+
   return (
     <div className="grid md:grid-cols-5 grid-cols-4 md:text-md text-sm gap-4   items-center  border border-slate-200  rounded-md  lg:px-4  py-4 p-2">
       <div className="md:col-span-2 justify-self-start flex  flex-col gap-2 ">
@@ -42,7 +59,17 @@ const ItemContent = ({
           />
           <div className="flex items-start gap-5 mt-3">
             <button
-              onClick={() => {}}
+              onClick={() =>
+                removeItemFromCart({
+                  productImage,
+                  productName,
+                  productDescription,
+                  specialPrice,
+                  productPrice,
+                  productId,
+                  quantity,
+                })
+              }
               className="flex items-center font-semibold space-x-2 px-4 py-1 text-xs border border-rose-600 text-rose-600 rounded-md hover:bg-red-600 hover:text-white transition-colors duration-200"
             >
               <HiOutlineTrash size={16} className="mr-1" />
@@ -52,7 +79,7 @@ const ItemContent = ({
         </div>
       </div>
       <div className="justify-self-center lg:text-[17px] text-sm text-slate-600 font-semibold">
-        {Number(specialPrice)}
+        {formatPrice(Number(specialPrice))}
       </div>
       <div className="justify-self-center">
         <SetQuantity
@@ -69,11 +96,21 @@ const ItemContent = ({
               quantity,
             })
           }
-          handleQtyDecrease={() => {}}
+          handleQtyDecrease={() => {
+            handleQtyDecrease({
+              productImage,
+              productName,
+              productDescription,
+              specialPrice,
+              productPrice,
+              productId,
+              quantity,
+            });
+          }}
         />
       </div>
       <div className="justify-self-center lg:text-[17px] text-sm text-slate-600 font-semibold">
-        {Number(currentQuantity) * Number(specialPrice)}
+        {formatPrice(Number(currentQuantity) * Number(specialPrice))}
       </div>
     </div>
   );
