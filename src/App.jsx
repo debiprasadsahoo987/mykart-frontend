@@ -7,6 +7,7 @@ import About from "./components/About";
 import Contact from "./components/Contact";
 import { Toaster } from "react-hot-toast";
 import Cart from "./components/cart/Cart";
+import LogIn from "./components/auth/LogIn";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/login" element={<LogIn />} />
         </Routes>
       </Router>
 
