@@ -8,6 +8,7 @@ import { BiUser } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { FaShoppingCart } from "react-icons/fa";
 import { IoExitOutline } from "react-icons/io5";
+import BackDrop from "./BackDrop";
 
 const UserMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -57,11 +58,13 @@ const UserMenu = () => {
           </MenuItem>
         </Link>
         <MenuItem className="flex gap-2" onClick={logOutHandler}>
-          <div className="font-semibold w-full flex gap-2 items-center bg-button-gradient px-4 py-1"></div>
-          <IoExitOutline className="text-xl" />
-          <span className="font-bold text-[16px] mt-1">Log Out</span>
+          <div className="font-semibold w-full flex gap-2 items-center bg-button-gradient px-4 py-1 text-white rounded-sm">
+            <IoExitOutline className="text-xl" />
+            <span className="font-bold text-[16px] mt-1">Log Out</span>
+          </div>
         </MenuItem>
       </Menu>
+      {open && <BackDrop />}
     </div>
   );
 };
