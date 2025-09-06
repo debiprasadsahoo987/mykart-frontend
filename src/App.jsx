@@ -1,6 +1,13 @@
 import Products from "./components/products/Products";
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+  Navigate,
+  Outlet,
+} from "react-router-dom";
 import Home from "./components/home/Home";
 import Navbar from "./components/shared/Navbar";
 import About from "./components/About";
@@ -8,6 +15,31 @@ import Contact from "./components/Contact";
 import { Toaster } from "react-hot-toast";
 import Cart from "./components/cart/Cart";
 import LogIn from "./components/auth/LogIn";
+import PrivateRoute from "./components/PrivateRoute";
+import Register from "./components/auth/Register";
+import { useSelector } from "react-redux";
+
+function useAuth() {
+  const user =
+    useSelector((s) => s.auth?.user) ||
+    JSON.parse(localStorage.getItem("auth"));
+  return Boolean(user);
+}
+
+function PrivateOutlet() {
+  const authed = useAuth();
+  const location = useLocation();
+  return authed ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/login" replace state={{ from: location }} />
+  );
+}
+
+function PublicOutlet() {
+  const authed = useAuth();
+  return authed ? <Navigate to="/" replace /> : <Outlet />;
+}
 
 function App() {
   return (
@@ -20,7 +52,20 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<LogIn />} />
+          {/* Public-only group (login/register). If already authed, redirect to "/" */}
+          <Route element={<PublicOutlet />}>
+            <Route path="/login" element={<LogIn />} />
+            <Route path="/register" element={<Register />} />
+          </Route>
+
+          {/* Protected group example */}
+          <Route element={<PrivateOutlet />}>
+            {/* Example protected route. Replace or add more as needed. */}
+            {/* <Route path="/profile" element={<Profile />} /> */}
+          </Route>
+
+          {/* Fallback */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
 
