@@ -18,6 +18,7 @@ import LogIn from "./components/auth/LogIn";
 import PrivateRoute from "./components/PrivateRoute";
 import Register from "./components/auth/Register";
 import { useSelector } from "react-redux";
+import Checkout from "./components/checkout/Checkout";
 
 function useAuth() {
   const user =
@@ -52,6 +53,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
           {/* Public-only group (login/register). If already authed, redirect to "/" */}
           <Route element={<PublicOutlet />}>
             <Route path="/login" element={<LogIn />} />

@@ -62,6 +62,7 @@ const Cart = () => {
             <button
               onClick={() => {}}
               className="font-semibold w-[300px] py-2 px-4 rounded-sm bg-custom-blue text-white flex items-center justify-center gap-2 hover:bg-blue-800 transition duration-500"
+              to="/checkout"
             >
               <MdShoppingCart size={20} />
               Checkout
