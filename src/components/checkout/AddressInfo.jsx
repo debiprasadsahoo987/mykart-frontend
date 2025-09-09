@@ -3,10 +3,12 @@ import Skeleton from "../shared/Skeleton";
 import React from "react";
 import AddressInfoModal from "./AddressInfoModal";
 import AddAddressForm from "./AddAddressForm";
+import { useSelector } from "react-redux";
+import AddressList from "./AddressList";
 
-const AddressInfo = () => {
-  const noAddress = true;
-  const isLoading = false;
+const AddressInfo = ({ addresses = [] }) => {
+  const noAddress = addresses.length === 0;
+  const { isLoading, btnLoader } = useSelector((state) => state.errors);
   const [openAddressModal, setOpenAddressModal] = React.useState(false);
   const [selectedAddress, setSelectedAddress] = React.useState(null);
   const addNewAddressHandler = () => {
@@ -41,9 +43,25 @@ const AddressInfo = () => {
               <Skeleton />
             </div>
           ) : (
-            <div className="space-y-4 pt-6">
-              <p>Address List here...</p>
-            </div>
+            <>
+              <div className="space-y-4 pt-6">
+                <AddressList
+                  addresses={addresses}
+                  setSelectedAddress={setSelectedAddress}
+                  setOpenAddressModal={setOpenAddressModal}
+                />
+              </div>
+              {addresses.length > 0 && (
+                <div className="mt-4 text-center">
+                  <button
+                    className="px-4 py-2 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 transition duration-300"
+                    onClick={addNewAddressHandler}
+                  >
+                    Add More
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </div>
       )}

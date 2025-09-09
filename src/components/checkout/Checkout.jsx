@@ -1,12 +1,14 @@
 import { Step, StepLabel, Stepper } from "@mui/material";
 import React, { useEffect } from "react";
 import AddressInfo from "./AddressInfo";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUserAddresses } from "../../store/actions";
 
 const Checkout = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const dispatch = useDispatch();
+  const raw = useSelector((s) => s.auth?.address); // whatever the slice stores
+  const addresses = Array.isArray(raw) ? raw : []; // normalize to []
 
   const steps = ["Address", "Payment Method", "Order Summary", "Place Order"];
 
@@ -23,7 +25,9 @@ const Checkout = () => {
           </Step>
         ))}
       </Stepper>
-      <div className="mt-5">{activeStep === 0 && <AddressInfo />}</div>
+      <div className="mt-5">
+        {activeStep === 0 && <AddressInfo addresses={addresses} />}
+      </div>
     </div>
   );
 };
