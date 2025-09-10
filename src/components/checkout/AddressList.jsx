@@ -13,6 +13,7 @@ const AddressList = ({
   addresses = [],
   setSelectedAddress,
   setOpenAddressModal,
+  setOpenDeleteModal,
 }) => {
   const dispatch = useDispatch();
   const list = Array.isArray(addresses) ? addresses : [];
@@ -24,6 +25,7 @@ const AddressList = ({
   };
   const onDeleteButtonHandler = (list) => {
     setSelectedAddress(list);
+    setOpenDeleteModal(true);
   };
   const handleAddressSelection = (list) => {
     dispatch(selectUserCheckoutAddress(list));
