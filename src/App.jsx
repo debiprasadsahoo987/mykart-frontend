@@ -53,7 +53,6 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
           {/* Public-only group (login/register). If already authed, redirect to "/" */}
           <Route element={<PublicOutlet />}>
             <Route path="/login" element={<LogIn />} />
@@ -64,6 +63,7 @@ function App() {
           <Route element={<PrivateOutlet />}>
             {/* Example protected route. Replace or add more as needed. */}
             {/* <Route path="/profile" element={<Profile />} /> */}
+            <Route path="/checkout" element={<Checkout />} />
           </Route>
 
           {/* Fallback */}

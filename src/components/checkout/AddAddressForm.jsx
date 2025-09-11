@@ -50,6 +50,7 @@ const AddAddressForm = ({ address, setOpenAddressModal }) => {
             required
             id="buildingName"
             type="text"
+            min={5}
             message="*Building Name is required"
             placeholder="Enter Building Name"
             register={register}
@@ -61,6 +62,7 @@ const AddAddressForm = ({ address, setOpenAddressModal }) => {
             required
             id="city"
             type="text"
+            min={3}
             message="*City is required"
             placeholder="Enter City"
             register={register}
@@ -72,6 +74,7 @@ const AddAddressForm = ({ address, setOpenAddressModal }) => {
             required
             id="state"
             type="text"
+            min={2}
             message="*State is required"
             placeholder="Enter State"
             register={register}
@@ -83,6 +86,7 @@ const AddAddressForm = ({ address, setOpenAddressModal }) => {
             required
             id="pincode"
             type="text"
+            min={6}
             message="*Pincode is required"
             placeholder="Enter Pincode"
             register={register}
@@ -93,6 +97,7 @@ const AddAddressForm = ({ address, setOpenAddressModal }) => {
             required
             id="street"
             type="text"
+            min={5}
             message="*Street is required"
             placeholder="Enter Street"
             register={register}
@@ -104,6 +109,7 @@ const AddAddressForm = ({ address, setOpenAddressModal }) => {
             required
             id="country"
             type="text"
+            min={2}
             message="*Country is required"
             placeholder="Enter Country"
             register={register}
