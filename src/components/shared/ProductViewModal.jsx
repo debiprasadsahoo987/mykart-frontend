@@ -17,7 +17,7 @@ function ProductViewModal({ open, setOpen, product, isAvailable }) {
     productDescription,
     // productDiscount,
     productPrice,
-    // productQuantity,
+    // quantity,
     specialPrice,
   } = product;
 

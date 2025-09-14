@@ -14,14 +14,14 @@ const ProductCard = ({
   productDescription,
   productDiscount,
   productPrice,
-  productQuantity,
+  quantity,
   specialPrice,
   about = false,
 }) => {
   const [openProductViewModal, setOpenProductViewModal] = useState(false);
   const btnLoader = false;
   const [selectedViewProduct, setSelectedViewProduct] = useState("");
-  const isAvailable = productQuantity && Number(productQuantity) > 0;
+  const isAvailable = quantity && Number(quantity) > 0;
   const dispatch = useDispatch();
 
   const handleProductView = (product) => {
@@ -46,7 +46,7 @@ const ProductCard = ({
             productDescription,
             productDiscount,
             productPrice,
-            productQuantity,
+            quantity,
             specialPrice,
           });
         }}
@@ -69,7 +69,7 @@ const ProductCard = ({
                 productDescription,
                 productDiscount,
                 productPrice,
-                productQuantity,
+                quantity,
                 specialPrice,
               });
             }}
@@ -108,7 +108,7 @@ const ProductCard = ({
                     specialPrice,
                     productPrice,
                     productId,
-                    productQuantity,
+                    quantity,
                   });
                 }}
                 className={`bg-blue-500 ${

@@ -55,7 +55,7 @@ export const addToCart =
       (item) => item.productId === data.productId
     );
 
-    const isQuantityExist = getProduct.productQuantity >= qty;
+    const isQuantityExist = getProduct.quantity >= qty;
 
     if (isQuantityExist) {
       dispatch({
@@ -77,7 +77,7 @@ export const increaseCartQty =
       (item) => item.productId === data.productId
     );
 
-    const isQuantityExist = getProduct.productQuantity >= currentQuantity + 1;
+    const isQuantityExist = getProduct.quantity >= currentQuantity + 1;
 
     if (isQuantityExist) {
       const newQuantity = currentQuantity + 1;
@@ -221,3 +221,45 @@ export const deleteUserAddress =
       setOpenDeleteModal(false);
     }
   };
+
+export const addPaymentMethod = (method) => {
+  return {
+    type: "ADD_PAYMENT_METHOD",
+    payload: method,
+  };
+};
+
+export const createUserCart = (sendCartItems) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: "IS_FETCHING" });
+    await api.post("/cart/create", sendCartItems);
+    await dispatch(getUserCart());
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: "IS_ERROR",
+      payload: error?.response?.data?.message || "Failed to create user cart",
+    });
+  }
+};
+export const getUserCart = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: "IS_FETCHING" });
+    const { data } = await api.get("carts/users/cart");
+    dispatch({
+      type: "GET_USER_CART_PRODUCTS",
+      payload: data.products,
+      totalPrice: data.totalPrice,
+      cartId: data.cartId,
+    });
+    localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart));
+    dispatch({ type: "IS_SUCCESS" });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: "IS_ERROR",
+      payload:
+        error?.response?.data?.message || "Failed to get user cart items",
+    });
+  }
+};
