@@ -19,6 +19,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import Register from "./components/auth/Register";
 import { useSelector } from "react-redux";
 import Checkout from "./components/checkout/Checkout";
+import PaymentConfirmation from "./components/checkout/PaymentConfirmation";
 
 function useAuth() {
   const user =
@@ -64,6 +65,7 @@ function App() {
             {/* Example protected route. Replace or add more as needed. */}
             {/* <Route path="/profile" element={<Profile />} /> */}
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/order-confirm" element={<PaymentConfirmation />} />
           </Route>
 
           {/* Fallback */}
