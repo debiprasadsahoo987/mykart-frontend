@@ -28,7 +28,6 @@ const PaymentConfirmation = () => {
       cart &&
       cart?.length > 0
     ) {
-      console.log(selectedUserCheckoutAddress);
       const sendData = {
         addressId: selectedUserCheckoutAddress.addressId,
         pgName: "Stripe",

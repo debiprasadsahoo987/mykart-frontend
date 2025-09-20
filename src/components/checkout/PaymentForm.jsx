@@ -24,7 +24,7 @@ const PaymentForm = ({ clientSecret, totalPrice }) => {
       elements,
       clientSecret,
       confirmParams: {
-        return_url: `${import.meta.env.VITE_FRONTEND_URL}/order-confirm`,
+        return_url: `${import.meta.env.VITE_FRONT_END_URL}/order-confirm`,
       },
     });
 
@@ -41,7 +41,7 @@ const PaymentForm = ({ clientSecret, totalPrice }) => {
   const isLoading = !clientSecret || !stripe || !elements;
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-4">
+    <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-4 mb-10">
       <h2 className="text-xl font-semibold mb-4">Payment Information</h2>
       {isLoading ? (
         <Skeleton />
