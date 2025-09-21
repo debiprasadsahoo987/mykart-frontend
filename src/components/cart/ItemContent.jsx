@@ -14,10 +14,10 @@ import { formatPrice } from "../../utils/formatPrice";
 const ItemContent = ({
   productId,
   productName,
-  productImage,
-  productDescription,
-  productDiscount,
-  productPrice,
+  image,
+  description,
+  discount,
+  price,
   quantity,
   specialPrice,
   cartId,
@@ -53,7 +53,7 @@ const ItemContent = ({
         </div>
         <div className="md:w-36 sm:w-24 w-12">
           <img
-            src={productImage}
+            src={image}
             alt={productName}
             className="md:h-36 sm:h-24 h-12 w-full object-cover rounded-md"
           />
@@ -61,11 +61,11 @@ const ItemContent = ({
             <button
               onClick={() =>
                 removeItemFromCart({
-                  productImage,
+                  image,
                   productName,
-                  productDescription,
+                  description,
                   specialPrice,
-                  productPrice,
+                  price,
                   productId,
                   quantity,
                 })
@@ -87,22 +87,22 @@ const ItemContent = ({
           cardCounter={true}
           handleQtyIncrease={() =>
             handleQtyIncrease({
-              productImage,
+              image,
               productName,
-              productDescription,
+              description,
               specialPrice,
-              productPrice,
+              price,
               productId,
               quantity,
             })
           }
           handleQtyDecrease={() => {
             handleQtyDecrease({
-              productImage,
+              image,
               productName,
-              productDescription,
+              description,
               specialPrice,
-              productPrice,
+              price,
               productId,
               quantity,
             });

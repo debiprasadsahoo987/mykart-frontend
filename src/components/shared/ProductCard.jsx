@@ -10,10 +10,10 @@ import { formatPrice } from "../../utils/formatPrice";
 const ProductCard = ({
   productId,
   productName,
-  productImage,
-  productDescription,
-  productDiscount,
-  productPrice,
+  image,
+  description,
+  discount,
+  price,
   quantity,
   specialPrice,
   about = false,
@@ -42,10 +42,10 @@ const ProductCard = ({
           handleProductView({
             id: productId,
             productName,
-            productImage,
-            productDescription,
-            productDiscount,
-            productPrice,
+            image,
+            description,
+            discount,
+            price,
             quantity,
             specialPrice,
           });
@@ -54,7 +54,7 @@ const ProductCard = ({
       >
         <img
           className="w-full h-full cursor-pointer transition-transform duration-300 hover:scale-105"
-          src={productImage}
+          src={image}
           alt={productName}
         ></img>
       </div>
@@ -65,10 +65,10 @@ const ProductCard = ({
               handleProductView({
                 id: productId,
                 productName,
-                productImage,
-                productDescription,
-                productDiscount,
-                productPrice,
+                image,
+                description,
+                discount,
+                price,
                 quantity,
                 specialPrice,
               });
@@ -79,7 +79,7 @@ const ProductCard = ({
           </h2>
           <div className="min-h-14 max-h-20">
             <p className="text-gray-600 text-sm line-clamp-3">
-              {TruncateText(productDescription, 70)}
+              {TruncateText(description, 70)}
             </p>
           </div>
           {!about && (
@@ -87,7 +87,7 @@ const ProductCard = ({
               {specialPrice ? (
                 <div className="flex flex-col">
                   <span className="text-[12px] text-gray-700 line-through">
-                    ₹{Number(productPrice).toFixed(2)}
+                    ₹{Number(price).toFixed(2)}
                   </span>
                   <span className="text-[15px] font-bold text-slate-700">
                     ₹{Number(specialPrice).toFixed(2)}
@@ -95,18 +95,18 @@ const ProductCard = ({
                 </div>
               ) : (
                 <span className="text-gray-700 line-through">
-                  {"  "}₹{Number(productPrice).toFixed(2)}
+                  {"  "}₹{Number(price).toFixed(2)}
                 </span>
               )}
               <button
                 disabled={!isAvailable || btnLoader}
                 onClick={() => {
                   addToCartHandler({
-                    productImage,
+                    image,
                     productName,
-                    productDescription,
+                    description,
                     specialPrice,
-                    productPrice,
+                    price,
                     productId,
                     quantity,
                   });

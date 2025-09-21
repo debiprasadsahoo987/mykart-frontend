@@ -35,7 +35,6 @@ const PaymentConfirmation = () => {
         pgStatus: "succeeded",
         pgResponseMessage: "Payment successful",
       };
-      console.log(sendData);
       dispatch(
         stripePaymentConfirmation(sendData, setErrorMessage, setLoading, toast)
       );

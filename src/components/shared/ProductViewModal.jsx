@@ -13,10 +13,10 @@ function ProductViewModal({ open, setOpen, product, isAvailable }) {
   const {
     // id,
     productName,
-    productImage,
-    productDescription,
-    // productDiscount,
-    productPrice,
+    image,
+    description,
+    // discount,
+    price,
     // quantity,
     specialPrice,
   } = product;
@@ -43,9 +43,9 @@ function ProductViewModal({ open, setOpen, product, isAvailable }) {
               transition
               className="relative transform overflow-hidden rounded-lg bg-white shadow-xl transition-all md:max-w-[620px] md:min-w-[620px] w-full"
             >
-              {productImage && (
+              {image && (
                 <div className="flex justify-center aspect-[3/2]">
-                  <img src={productImage} alt={productName}></img>
+                  <img src={image} alt={productName}></img>
                 </div>
               )}
               <div className="px-6 pt-10 pb-2">
@@ -60,7 +60,7 @@ function ProductViewModal({ open, setOpen, product, isAvailable }) {
                     {specialPrice ? (
                       <div className="flex items-center gap-2">
                         <span className="text-gray-400 line-through">
-                          ₹{Number(productPrice).toFixed(2)}
+                          ₹{Number(price).toFixed(2)}
                         </span>
                         <span className="sm:text-xl font-semibold text-slate-700">
                           ₹{Number(specialPrice).toFixed(2)}
@@ -69,7 +69,7 @@ function ProductViewModal({ open, setOpen, product, isAvailable }) {
                     ) : (
                       <span className="text-xl font-bold">
                         {" "}
-                        ${Number(productPrice).toFixed(2)}
+                        ${Number(price).toFixed(2)}
                       </span>
                     )}
                     {isAvailable ? (
@@ -89,7 +89,7 @@ function ProductViewModal({ open, setOpen, product, isAvailable }) {
                     )}
                   </div>
                   <Divider />
-                  <p>{productDescription}</p>
+                  <p>{description}</p>
                 </div>
               </div>
               <div className="px-6 py-4 flex justify-end gap-4">
